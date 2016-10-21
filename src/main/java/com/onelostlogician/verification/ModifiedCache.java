@@ -10,9 +10,10 @@ public class ModifiedCache<K,V> extends Cache<K,V> implements Source<K,V>  {
         this.calls = new HashMap<>();
     }
 
-    public V getKey(K key) {
+    @Override
+    protected V getKeyExpensive(K key) {
         increment(key);
-        return super.getKey(key);
+        return expensiveSource.getKey(key);
     }
 
     public Integer getKeyCalls(K key) {

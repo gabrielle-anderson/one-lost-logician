@@ -3,7 +3,7 @@ package com.onelostlogician.verification;
 import java.util.HashMap;
 
 public class Cache<K,V> implements Source<K,V> {
-    private Source<K,V> expensiveSource;
+    protected Source<K,V> expensiveSource;
     private HashMap<K,V> localCache;
 
     public Cache(Source<K, V> expensiveSource) {
@@ -16,9 +16,13 @@ public class Cache<K,V> implements Source<K,V> {
             return localCache.get(key);
         }
         else {
-            V value = expensiveSource.getKey(key);
+            V value = getKeyExpensive(key);
             localCache.put(key, value);
             return value;
         }
+    }
+
+    protected V getKeyExpensive(K key) {
+        return expensiveSource.getKey(key);
     }
 }
