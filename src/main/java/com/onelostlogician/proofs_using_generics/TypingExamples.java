@@ -7,12 +7,13 @@ public class TypingExamples {
         Ref.<String>build().unpack(
                 new UnpackRef<String, Object>() {
                     @Override
-                    public <A extends Formula<A>> Object unpacked(Ref<String, A> x) {
-                        return x.set("hello, world").unpack(
-                                new UnpackProof<Object>() {
+                    public <A extends Formula<A>> Object unpacked(Ref<String, A> r) {
+                        return r.set("hello, world").unpack(
+                                new UnpackProof<A,Object>() {
                                     @Override
-                                    public <F extends Formula<F>, P extends Proof<F, P>> Object unpacked(Proof<F, P> p) {
-                                        System.out.println(x.get());
+                                    public Object unpacked(Proof x) {
+                                        String s = r.get();
+                                        System.out.println(s);
                                         return null;
                                     }
                                 }
@@ -26,8 +27,9 @@ public class TypingExamples {
         Ref.<String>build().unpack(
                 new UnpackRef<String, Object>() {
                     @Override
-                    public <A extends Formula<A>> Object unpacked(Ref<String, A> x) {
-                        System.out.println(x.get());
+                    public <A extends Formula<A>> Object unpacked(Ref<String, A> r) {
+                        String s = r.get();
+                        System.out.println(s);
                         return null;
                     }
                 }
